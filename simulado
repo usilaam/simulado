@@ -1,0 +1,118 @@
+<?php
+$servername = "localhost";  // nome do servidor (pode ser "localhost")
+$username = "root";         // nome de usuário
+$password = "";             // senha do MySQL
+$dbname = "escola";         // nome do banco de dados
+?>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Alunos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Cadastro de Alunos</h1>
+    
+    <form action="cadastro.php" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label for="idade">Idade:</label>
+        <input type="number" name="idade" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+
+        <label for="curso">Curso:</label>
+        <input type="text" name="curso" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <?php
+    // Mensagem de sucesso ou erro
+    if (isset($_GET['msg'])) {
+        echo "<p class='msg'>{$_GET['msg']}</p>";
+    }
+    ?>
+
+    <h2>Lista de Alunos</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Email</th>
+            <th>Curso</th>
+            <th>Ações</th>
+        </tr>
+        <?php
+       // Preparar a consulta SQL usando um prepared statement
+
+
+
+// Fechar a declaração
+
+
+        ?>
+    </table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+
+$sql = "DELETE FROM alunos WHERE id = $id";
+
+ {
+    header("Location: index.php?delete=1");
+} else {
+    echo "Erro ao deletar o aluno: " . $conn->error;
+}
+
+$conn->close();
+?>
+
+
+
+
+
+
+
+<?php
+include 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST['nome'];
+    $idade = $_POST['idade'];
+    $email = $_POST['email'];
+    $curso = $_POST['curso'];
+
+    $sql = "INSERT INTO alunos (nome, idade, email, curso) VALUES ('$nome', '$idade', '$email', '$curso')";
+
+}
+
+
+?>
